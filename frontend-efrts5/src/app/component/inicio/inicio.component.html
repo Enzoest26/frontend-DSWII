@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Home | QUE CUADRO</title>
+<link rel="shortcut icon" href="../img/RN LOGO.png">
+
+</head>
+<body>
+	<app-navbar></app-navbar>
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<!-- Jumbotron Header -->
+		<div class="position-relative overflow-hidden p-1 m-md-3">
+			<section class="banner">
+				<div class="content-banner">
+					<p>100% Marco de Madera!</p>
+					<h2>Decora Tu Espacio<br />Con Nuestros Cuadros Personalizados</h2>
+					<a href="#mej">Cotiza el tuyo</a>
+				</div>
+			</section>
+		</div>
+		
+
+		<main class="main-content" style="align-content: center;">
+			<section class="container container-features">
+				<div class="card-feature text-center">
+					<fa-icon [icon]="truckFastIcon"></fa-icon>
+					<div class="feature-content">
+						<span>Envíos gratis a todo el Perú</span>
+						<p>En compras de 100 soles a más</p>
+					</div>
+				</div>
+				<div class="card-feature text-center">
+					<fa-icon [icon]="walletIcon"></fa-icon>
+					<div class="feature-content">
+						<span>Pagos Contraentrega</span>
+						<p>En estaciones del tren línea 1</p>
+					</div>
+				</div>
+				<div class="card-feature text-center">
+					<fa-icon [icon]="giftIcon"></fa-icon>
+					<div class="feature-content">
+						<span>Pide tu regalo sorpresa</span>
+						<p>Por la compra de 4 cuadros</p>
+					</div>
+				</div>
+				<div class="card-feature text-center">
+					<fa-icon [icon]="headPhoneIcon"></fa-icon>
+					<div class="feature-content">
+						<span>Servicio al cliente</span>
+						<p>LLámenos 24/7 al 987-564-123</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="container top-products">
+				<h1 class="heading-1" id="mej">Mejores Cuadros</h1>
+
+				<div class="container-options">
+					<span class="active">Destacados</span>
+					<span>Más recientes</span>
+					<span>Mejores Vendidos</span>
+				</div>
+
+			<!-- Page Features -->
+			<div class="container" style="align-content: center;">
+				<div class="container-products">
+					<div class="card-product" th:each="producto: ${productos}">
+
+						<div class="container-img">
+							<img th:src="@{/images/{img} (img=${producto.imagen})} "/>
+							<span class="discount">-15%</span>
+						</div>
+
+						<div class="content-card-product">
+							<div class="stars" style="margin-top: 22px">
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-regular fa-star"></i>
+							</div>
+							<h3 class="card-text" th:text="${producto.nombre}"></h3>
+							<span class="add-cart">
+                  					<a th:href="@{/productohome/{id}  (id=${producto.id})}">
+                  						<i class="fa-solid fa-eye"></i>
+                  					</a>
+							</span>
+							<p class="price" th:text=" 's/ '+ ${producto.precio} "></p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+				
+			</section>
+			
+			<section class="container blogs">
+				<h1 class="heading-1">Últimos Blogs</h1>
+
+				<div class="container-blogs">
+					<div class="card-blog">
+						<div class="container-img">
+							<img
+                                src="../../../assets/blog-1.jpg.png"
+                                alt="Blog Img1"
+                            />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>Lorem, ipsum dolor sit</h3>
+							<span>03 Enero 2023</span>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Iste, molestiae! Ratione et, dolore ipsum
+								quaerat iure illum reprehenderit non maxime amet dolor
+								voluptas facilis corporis, consequatur eius est sunt
+								suscipit?
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+					<div class="card-blog">
+						<div class="container-img">
+							<img
+                                src="../../../assets/blog-2.jpg.png"
+                                alt="Blog Img2"
+                            />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>Lorem, ipsum dolor sit</h3>
+							<span>22 Abril 2023</span>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Iste, molestiae! Ratione et, dolore ipsum
+								quaerat iure illum reprehenderit non maxime amet dolor
+								voluptas facilis corporis, consequatur eius est sunt
+								suscipit?
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+					<div class="card-blog">
+						<div class="container-img">
+							<img
+                                src="../../../assets/blog-3.jpg.png"
+                                alt="Blog Img3"
+                            />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>Lorem, ipsum dolor sit</h3>
+							<span>18 Junio 2023</span>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing
+								elit. Iste, molestiae! Ratione et, dolore ipsum
+								quaerat iure illum reprehenderit non maxime amet dolor
+								voluptas facilis corporis, consequatur eius est sunt
+								suscipit?
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+				</div>
+			</section>
+            
+			<section class="gallery">
+				<img
+					src="../../../assets/gallery1.jpg.png"
+					alt="Gallery Img1"
+					class="gallery-img-1"
+				/><img
+					src="../../../assets/gallery2.jpg.png"
+					alt="Gallery Img2"
+					class="gallery-img-2"
+				/><img
+					src="../../../assets/gallery3.jpg.png"
+					alt="Gallery Img3"
+					class="gallery-img-3"
+				/><img
+					src="../../../assets/gallery4.jpg.png"
+					alt="Gallery Img4"
+					class="gallery-img-4"
+				/><img
+					src="../../../assets/gallery5.jpg.png"
+					alt="Gallery Img5"
+					class="gallery-img-5"
+				/>
+			</section>
+
+			
+		</main>
+		
+
+	</div>
+	<!-- /.container -->
+	
+
+	<!-- Footer -->
+	<app-footer></app-footer>
+
+	
+
+</body>
+
+</html>
