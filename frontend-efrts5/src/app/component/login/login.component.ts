@@ -13,8 +13,14 @@ export class LoginComponent {
 
   loginForm !: FormGroup;
 
+  mostrarError = false;
+
   constructor(private navbarService : NavbarService, private loginService : LoginService, private formBuilder : FormBuilder, private router: Router)
   {
+    if(navbarService.isAutenticado())
+    {
+      this.router.navigate(['/']);
+    }
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       contrasenia: ['', Validators.required]
@@ -23,26 +29,24 @@ export class LoginComponent {
 
   ingresar()
   {
+    this.mostrarError = false;
     if(this.loginForm.invalid)
     {
-      console.log("Invalido");
+      this.mostrarError = true;
       return;
     }
     let usuario = this.loginForm.value;
-    console.log(usuario);
-    
-    this.loginService.login(usuario).subscribe({next: data =>{
-      console.log(data);
-      this.navbarService.autenticado = true;
-      if(data.tipoUsuario == 'ADMIN')
-      {
-        this.navbarService.isAdmin = true;
-      }else
-      {
-        this.navbarService.isUser = true;
+    this.loginService.login(usuario).subscribe({
+      next: data =>{
+        localStorage.setItem("auth", "true");
+        localStorage.setItem("tipoUsuario", data.tipoUsuario)
+        this.router.navigate(['/']);
+      },
+      error: error =>{
+        this.navbarService.autenticado = false;
+        this.mostrarError = true;
       }
-      this.router.navigate(['/']);
-
-    }})
+  })
   }
+
 }

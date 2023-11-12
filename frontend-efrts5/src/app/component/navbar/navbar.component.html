@@ -1,4 +1,7 @@
-<!-- Navigation -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand" routerLink="/"><strong><strong style="color: #1e1e1e">QUE</strong><strong style="color: #8a0202">CUADRO !</strong></strong></a>
@@ -27,7 +30,16 @@
                             Carrito
                         </a>
                     </li>
-                    <li *ngIf="!navbarService.isAdministrador() && !navbarService.isUsuario()" class="nav-item"><a class="nav-link" routerLink="/login">Iniciar sesión</a></li>
+                    <li *ngIf="!isAutenticado()" class="nav-item"><a class="nav-link" routerLink="/login">Iniciar sesión</a></li>
+                    <div *ngIf="isAutenticado()" class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          USER
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Mis Compras</a></li>
+                          <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+                        </ul>
+                      </div>
                 </ul>
             </div>
         </div>
