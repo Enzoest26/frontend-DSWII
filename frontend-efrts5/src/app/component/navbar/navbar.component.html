@@ -32,13 +32,22 @@
                     </li>
                     <li *ngIf="!isAutenticado()" class="nav-item"><a class="nav-link" routerLink="/login">Iniciar sesión</a></li>
                     <div *ngIf="isAutenticado()" class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button *ngIf="!isAdmin()" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           USER
                         </button>
-                        <ul class="dropdown-menu">
+                        <button *ngIf="isAdmin()" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ADMIN
+                          </button>
+                        <ul *ngIf="!isAdmin()" class="dropdown-menu">
                           <li><a class="dropdown-item" href="#">Mis Compras</a></li>
                           <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
                         </ul>
+                        <ul *ngIf="isAdmin()" class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Productos</a></li>
+                            <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="#">Ordenes</a></li>
+                            <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+                          </ul>
                       </div>
                 </ul>
             </div>

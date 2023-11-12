@@ -25,6 +25,11 @@ export class NavbarComponent {
     }
   }
 
+  isAdmin() : Boolean{
+    let tipoUsuario = localStorage.getItem("tipoUsuario");
+    return tipoUsuario == "ADMIN" ? true : false;
+  }
+
   cerrarSesion() {
     localStorage.removeItem("auth");
     localStorage.removeItem("tipoUsuario");
