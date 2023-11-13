@@ -230,7 +230,7 @@ label{
     background-color: #e2e2e2;
     border-radius: 2rem;
     transition: 0.8s ease-in-out;
-    /*background-image: url();*/
+    background-image: url(../../../assets/banner-login.jpg);
     background-size: cover; 
     background-position: center; 
 }
