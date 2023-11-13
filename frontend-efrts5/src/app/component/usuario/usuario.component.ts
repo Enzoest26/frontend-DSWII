@@ -6,7 +6,7 @@ import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { BaseResponse } from 'src/app/modal/base-response';
 import { Usuario } from 'src/app/modal/usuario';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
-import { TITULO_ERROR_NOTIFICACION } from 'src/app/util/constantes';
+import { TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
 
 @Component({
   selector: 'app-usuario',
@@ -26,6 +26,7 @@ export class UsuarioComponent implements OnInit{
 
   indActualizar : Boolean = false;
   idEliminar?: number;
+  idActualizar?: number;
   mostrarToast: boolean = false;
   baseResponse? : BaseResponse;
   tituloNotificacion ?: string;
@@ -47,6 +48,7 @@ export class UsuarioComponent implements OnInit{
 
   abrirMantenimientoActualizar(id: number)
   {
+    this.usuarioForm.reset();
     this.usuarioService.buscarPorId(id).subscribe({
       next: data =>{
         this.usuarioForm.patchValue({
@@ -55,7 +57,8 @@ export class UsuarioComponent implements OnInit{
           nombre : data.nombre,
           telefono : data.telefono,
           tipoUsuario : data.tipoUsuario
-        })
+        });
+        this.idActualizar = id;
       }
     });
     this.indActualizar = true;
@@ -88,6 +91,31 @@ export class UsuarioComponent implements OnInit{
   {
     this.usuariosData = [];
     this.usuarioService.obtenerUsuario().subscribe(data => this.usuariosData = data);
+  }
+
+  accionActualizar()
+  {
+    if(this.usuarioForm.invalid)
+    {
+      return;
+    }
+    let usuario = this.usuarioForm.value;
+    usuario.id = this.idActualizar;
+    this.usuarioService.actualizarUsuario(usuario).subscribe({next: data =>{
+      this.actualizarTabla();
+      this.mostrarNotificacionExito();
+      this.dialog.closeAll();
+    }})
+  }
+
+  mostrarNotificacionExito()
+  {
+    this.tituloNotificacion = TITULO_EXITO_NOTIFICACION;
+    this.snackBar.openFromTemplate(this.notificacion, {
+      duration: 3 * 1000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   mostrarNotificacionError()

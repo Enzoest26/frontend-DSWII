@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/modal/usuario';
 import { BASE_URL } from 'src/app/util/constantes';
 
 @Injectable({
@@ -10,7 +11,8 @@ export class UsuarioService {
 
   private urlListarTodos = BASE_URL + "/usuario/listarTodos";
   private urlBuscarPodId = BASE_URL + "/usuario/buscarPorId";
-  private urlEliminar = BASE_URL + "/usuario/eliminar"
+  private urlEliminar = BASE_URL + "/usuario/eliminar";
+  private urlActualizar = BASE_URL + "/usuario/actualizar";
   constructor(private http : HttpClient) { }
 
   obtenerUsuario() : Observable<any>{
@@ -19,6 +21,10 @@ export class UsuarioService {
 
   buscarPorId(id: number) : Observable<any>{
     return this.http.get<any>(`${this.urlBuscarPodId}/${id}`);
+  }
+
+  actualizarUsuario(body: Usuario) : Observable<any>{
+    return this.http.put<any>(`${this.urlActualizar}`,body);
   }
 
   eliminarUsuario(id: number): Observable<any>{

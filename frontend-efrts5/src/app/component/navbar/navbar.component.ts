@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/service/navbar.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { NavbarService } from 'src/app/service/navbar.service';
 })
 export class NavbarComponent {
 
-  constructor(public navbarService: NavbarService)
+  constructor(public navbarService: NavbarService, private router : Router)
   {
     console.log(this.isAutenticado())
   }
@@ -33,5 +34,6 @@ export class NavbarComponent {
   cerrarSesion() {
     localStorage.removeItem("auth");
     localStorage.removeItem("tipoUsuario");
+    this.router.navigate(['/']);
   }
 }
