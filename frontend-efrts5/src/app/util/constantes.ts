@@ -1,1 +1,9 @@
 export const BASE_URL = "http://localhost:8080"
+export const PATTERN_ALFABETICO = "[A-Za-z]*"
+export const PATTERN_ALFABETICO_ESPACIO = "[A-Za-z ]*"
+export const PATTERN_NUMERICO = "[0-9]*";
+export const TITULO_EXITO_NOTIFICACION = "Exitoso ✅"
+export const TITULO_ERROR_NOTIFICACION = "Error !!! ❌"
+export const TITULO_ELIMINAR = "ELIMINAR"
+export const BOTON_REGISTRAR = 'REGISTRAR'
+export const BOTON_ACTUALIZAR = 'ACTUALIZAR'

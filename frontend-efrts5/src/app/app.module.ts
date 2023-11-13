@@ -12,7 +12,10 @@ import { RegistroComponent } from './component/registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatSnackBar, MatSnackBarRef, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FontAwesomeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
