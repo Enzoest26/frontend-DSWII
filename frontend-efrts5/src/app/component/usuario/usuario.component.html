@@ -1,0 +1,113 @@
+<p>usuario works!</p>
+<!-- Page Content -->
+<div class="container" style="margin-top: 5rem;">
+
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">
+      Usuarios <small>| Mantenimiento</small>
+    </h1>
+  
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{/administrador}">Home</a></li>
+      <li class="breadcrumb-item active">Ver Usuarios</li>
+    </ol>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Email</th>
+          <th scope="col">Dirección</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosData">
+          <td>{{usuario.nombre}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.direccion}}</td>
+          <td>{{usuario.tipoUsuario}}</td>
+          <td>
+            <button class="btn btn-warning" (click)="abrirMantenimientoActualizar(usuario.id)"><mat-icon>edit</mat-icon></button> 
+            <button class="btn btn-danger" (click)="abrirModalEliminar(usuario.id)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </tr>       
+      </tbody>
+    </table>
+  
+  </div>
+
+  <ng-template #modalMantenimiento>
+    <h1 mat-dialog-title class="text-center">Actualizar Usuario</h1>
+      <form [formGroup]="usuarioForm" >
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombres</mat-label>
+          <input matInput type="text"formControlName="nombre">
+          <mat-error *ngIf="usuarioForm.hasError('required', 'nombre')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="email">
+          <mat-error *ngIf="usuarioForm.hasError('required', 'email')">*Campo Obligatorio</mat-error>
+          <mat-error *ngIf="usuarioForm.hasError('email', 'email')">*Email invalido. Ejm: ejemplo@ejemplo.com </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input matInput type="text" formControlName="direccion">
+          <mat-error *ngIf="usuarioForm.hasError('required', 'direccion')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Clave</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="usuarioForm.hasError('required', 'password')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input matInput type="text" formControlName="telefono">
+          <mat-error *ngIf="usuarioForm.hasError('required', 'telefono')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo Usuario</mat-label>
+          <mat-select formControlName="tipoUsuario">
+            <mat-option value="ADMIN">ADMIN</mat-option>
+            <mat-option value="USER">USER</mat-option>
+          </mat-select>
+          <mat-error *ngIf="usuarioForm.hasError('required', 'tipoUsuario')">*Campo Obligatorio</mat-error>
+        </mat-form-field> 
+      </div>
+    </form>
+
+  </ng-template>
+  
+  <ng-template #dialogEliminar>
+    <div mat-dialog-content>
+      <h3 style="font-weight: bold;">ELIMINAR</h3>
+      <p>¿Desea eliminar el usuario de ID: <span style="font-weight: bold;">{{idEliminar}}</span>?</p>
+
+      <div class="d-flex justify-content-between">
+        <button mat-raised-button (click)="accionEliminar()" color="warn">
+          Eliminar
+        </button>
+      </div>
+      
+    </div>
+  </ng-template>
+
+  <ng-template #notificacion>
+    <h4>{{tituloNotificacion}}</h4>
+    <p *ngIf="baseResponse?.descripcion">{{baseResponse?.descripcion}}</p>
+  </ng-template>
+  

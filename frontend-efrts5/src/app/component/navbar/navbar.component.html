@@ -44,7 +44,7 @@
                         </ul>
                         <ul *ngIf="isAdmin()" class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Productos</a></li>
-                            <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                            <li><a class="dropdown-item" routerLink="/usuarios">Usuarios</a></li>
                             <li><a class="dropdown-item" href="#">Ordenes</a></li>
                             <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
                           </ul>
