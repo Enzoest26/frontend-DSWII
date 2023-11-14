@@ -22,6 +22,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { UsuarioComponent } from './component/usuario/usuario.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { CarritoComprasComponent } from './component/carrito-compras/carrito-compras.component';
+import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {MatIconModule} from '@angular/material/icon';
     NavbarComponent,
     LoginComponent,
     RegistroComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    CarritoComprasComponent,
+    VerificaCuadroComponent
   ],
   imports: [
     BrowserModule,
