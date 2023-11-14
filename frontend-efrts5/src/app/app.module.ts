@@ -24,6 +24,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { CarritoComprasComponent } from './component/carrito-compras/carrito-compras.component';
 import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
+import { CatalogoComponent } from './component/catalogo/catalogo.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cu
     RegistroComponent,
     UsuarioComponent,
     CarritoComprasComponent,
-    VerificaCuadroComponent
+    VerificaCuadroComponent,
+    CatalogoComponent
   ],
   imports: [
     BrowserModule,

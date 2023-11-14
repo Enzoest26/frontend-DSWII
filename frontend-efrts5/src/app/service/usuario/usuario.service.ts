@@ -13,6 +13,7 @@ export class UsuarioService {
   private urlBuscarPodId = BASE_URL + "/usuario/buscarPorId";
   private urlEliminar = BASE_URL + "/usuario/eliminar";
   private urlActualizar = BASE_URL + "/usuario/actualizar";
+  private urlBuscarPorEmail = BASE_URL + "/usuario/buscarPorEmail";
   constructor(private http : HttpClient) { }
 
   obtenerUsuario() : Observable<any>{
@@ -29,5 +30,9 @@ export class UsuarioService {
 
   eliminarUsuario(id: number): Observable<any>{
     return this.http.delete<any>(`${this.urlEliminar}/${id}`);
+  }
+
+  buscarPorEmail(email: string) : Observable<any>{
+    return this.http.get<any>(`${this.urlBuscarPorEmail}?email=${email}`)
   }
 }

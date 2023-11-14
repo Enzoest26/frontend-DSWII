@@ -6,6 +6,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { RegistroComponent } from './component/registro/registro.component';
 import { UsuarioComponent } from './component/usuario/usuario.component';
 import { CarritoComprasComponent } from './component/carrito-compras/carrito-compras.component';
+import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
 
 const routes: Routes = [
   {path: '', component: NavbarComponent, children: [
@@ -13,7 +14,8 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'registro', component: RegistroComponent},
     {path: 'usuarios', component: UsuarioComponent},
-    {path: 'carrito-compras', component: CarritoComprasComponent}
+    {path: 'carrito-compras', component: CarritoComprasComponent},
+    {path: 'verifica-cuadro', component: VerificaCuadroComponent}
   ]},
 ];
 

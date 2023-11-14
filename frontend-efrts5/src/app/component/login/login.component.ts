@@ -39,7 +39,8 @@ export class LoginComponent {
     this.loginService.login(usuario).subscribe({
       next: data =>{
         localStorage.setItem("auth", "true");
-        localStorage.setItem("tipoUsuario", data.tipoUsuario)
+        localStorage.setItem("tipoUsuario", data.tipoUsuario);
+        localStorage.setItem("email", usuario.username)
         this.router.navigate(['/']);
       },
       error: error =>{
