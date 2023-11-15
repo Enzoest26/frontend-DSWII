@@ -1,0 +1,44 @@
+<form [formGroup]="cuadroPersonalizadoForm">
+	<h1>Registro de Cuadro Personalizado </h1>
+
+	<div class="input-field2">
+		<input matInput type="text" required formControlName="nombre"/>
+		<label class="lbl">Ingresa el nombre de tu cuadro</label>
+	</div>
+	<div class="input-field2">
+        <select class="material-select" formControlName="materialId">
+            <option *ngFor="let material of materialCuadro" [value]="material.id">{{material.descripcion}}</option>
+        </select>
+		<!--<input matInput type="text" required formControlName="materialId"/>-->
+		<label class="lbl">Selecciona el material para tu cuadro</label>
+	</div>
+	<div class="input-field2">
+        <select class="color-select" formControlName="colorId">
+            <option *ngFor="let color of colorCuadro" [value]="color.id">{{color.descripcion}}</option>
+        </select>
+		<!--<input matInput type="text" required formControlName="colorId"/>-->
+		<label class="lbl">Selecciona el color del marco</label>
+	</div>
+	<div class="input-field2">
+		<input matInput type="text" required formControlName="medidaHorizontal"/>
+		<label class="lbl">Medida Horizontal</label>
+	</div>
+	<div class="input-field2">
+		<input matInput type="text" required formControlName="medidaVertical"/>
+		<label class="lbl">Medida Vertical</label>
+	</div>
+	<div class="input-field2">
+		<input matInput type="text" required formControlName="imagen"/>
+		<label class="lbl">Subir Imagen</label>
+	</div>
+	
+	<button (click)="registrarCuadroPersonalizado()">Guardar mi cuadro</button>
+
+	<button class="ver-detalles">Ver detalles</button>
+
+</form>
+
+<ng-template #notificacion>
+    <h4>{{tituloNotificacion}}</h4>
+    <p>Su cuadro ha sido registrado con éxito</p>
+</ng-template>

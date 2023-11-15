@@ -27,6 +27,7 @@ import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cu
 import { CatalogoComponent } from './component/catalogo/catalogo.component';
 import { ProductoComponent } from './component/producto/producto.component';
 import { VistaPreviaComponent } from './component/vista-previa/vista-previa.component';
+import { PersonalizadoComponent } from './component/producto/personalizado/personalizado.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { VistaPreviaComponent } from './component/vista-previa/vista-previa.comp
     VerificaCuadroComponent,
     CatalogoComponent,
     ProductoComponent,
-    VistaPreviaComponent
+    VistaPreviaComponent,
+    PersonalizadoComponent
   ],
   imports: [
     BrowserModule,

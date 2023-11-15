@@ -9,6 +9,7 @@ import { CarritoComprasComponent } from './component/carrito-compras/carrito-com
 import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
 import { CatalogoComponent } from './component/catalogo/catalogo.component';
 import { VistaPreviaComponent } from './component/vista-previa/vista-previa.component';
+import { PersonalizadoComponent } from './component/producto/personalizado/personalizado.component';
 
 const routes: Routes = [
   {path: '', component: NavbarComponent, children: [
@@ -19,7 +20,8 @@ const routes: Routes = [
     {path: 'carrito-compras', component: CarritoComprasComponent},
     {path: 'verifica-cuadro', component: VerificaCuadroComponent},
     {path: 'catalogo', component: CatalogoComponent},
-    {path: 'vista-previa/:id', component: VistaPreviaComponent}
+    {path: 'vista-previa/:id', component: VistaPreviaComponent},
+    {path: 'personalizado', component: PersonalizadoComponent}
   ]},
 ];
 
