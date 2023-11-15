@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Cuadro } from 'src/app/modal/cuadro';
 import { CuadroPaginado } from 'src/app/modal/cuadro-paginado';
 import { Usuario } from 'src/app/modal/usuario';
 import { BASE_URL } from 'src/app/util/constantes';
@@ -15,7 +16,7 @@ export class UsuarioService {
   private urlEliminar = BASE_URL + "/usuario/eliminar";
   private urlActualizar = BASE_URL + "/usuario/actualizar";
   private urlBuscarPorEmail = BASE_URL + "/usuario/buscarPorEmail";
-  private urlBuscarPorPaginado = BASE_URL + "/producto/buscarPorPagina";
+  
   constructor(private http : HttpClient) { }
 
   obtenerUsuario() : Observable<any>{
@@ -38,7 +39,5 @@ export class UsuarioService {
     return this.http.get<any>(`${this.urlBuscarPorEmail}?email=${email}`)
   }
 
-  buscarPorPaginado(pagina: number) : Observable<CuadroPaginado>{
-    return this.http.get<CuadroPaginado>(`${this.urlBuscarPorPaginado}?pagina=${pagina}`);
-  }
+  
 }

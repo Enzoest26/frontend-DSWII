@@ -58,8 +58,16 @@
 
         <ul class="list-group">
           <li class="list-group-item"><h4>Pagar: S/ {{calcularTotalPagar()}} </h4></li>
-          <a class="btn btn-dark">Generar</a>
+          <a class="btn btn-dark" (click)="generarOrden()">Generar</a>
         </ul>
       </div>
     </div>
   </div>
+
+<ng-template #notificacionExito>
+    <h4>Se agregó al carrito</h4>
+</ng-template>
+
+<ng-template #notificacionError>
+    <h4>Producto existente en el carrito</h4>
+</ng-template>

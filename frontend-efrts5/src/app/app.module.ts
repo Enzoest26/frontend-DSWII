@@ -26,6 +26,7 @@ import { CarritoComprasComponent } from './component/carrito-compras/carrito-com
 import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
 import { CatalogoComponent } from './component/catalogo/catalogo.component';
 import { ProductoComponent } from './component/producto/producto.component';
+import { VistaPreviaComponent } from './component/vista-previa/vista-previa.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ProductoComponent } from './component/producto/producto.component';
     CarritoComprasComponent,
     VerificaCuadroComponent,
     CatalogoComponent,
-    ProductoComponent
+    ProductoComponent,
+    VistaPreviaComponent
   ],
   imports: [
     BrowserModule,

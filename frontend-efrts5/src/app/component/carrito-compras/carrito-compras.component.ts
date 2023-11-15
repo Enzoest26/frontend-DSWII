@@ -26,7 +26,7 @@ export class CarritoComprasComponent {
   calcularTotalPagar() : number
   {
     let total = 0;
-    this.obtenerProductosCarrito().forEach(data => total += data.precio);
+    this.obtenerProductosCarrito().forEach(data => total += (data.precio * data.cantidad));
     return total;
   }
 }

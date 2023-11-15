@@ -5,5 +5,6 @@ export interface Cuadro {
     imagen: string;
     precio: number;
     usuarioId: number;
+    nombre: string;
     //Agregar lo  faltante
 }

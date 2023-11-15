@@ -19,7 +19,11 @@ export class CarritoService {
   //Retorna true si el producto no existe
   agregarProducto(id : number, cantidad: number, precio: number, descripcion: string) : Boolean
   {
-    let producto = this.carritoCompras.find(p => p.idProducto = id);
+    console.log(this.carritoCompras);
+    console.log(id);
+    
+    let producto = this.carritoCompras.find(p => p.idProducto === id);
+    console.log(producto);
     if(producto){
       return false;
     }
@@ -29,14 +33,15 @@ export class CarritoService {
       cantidad : cantidad,
       precio: precio
     } 
+    console.log(proAgregar);
     this.carritoCompras.push(proAgregar);
     this.actualizarCarritoLocalStorage();
     return true;
   }
 
   eliminarProducto(id: number){
-    let index = this.carritoCompras.findIndex(data => data.idProducto = id);
-    this.carritoCompras.slice(index,1);
+    let index = this.carritoCompras.findIndex(data => data.idProducto === id);
+    this.carritoCompras.splice(index,1);
     this.actualizarCarritoLocalStorage();
   }
 
@@ -46,6 +51,7 @@ export class CarritoService {
 
 
   actualizarCarritoLocalStorage(){
+    console.log(this.carritoCompras);
     localStorage.setItem('carrito', JSON.stringify(this.carritoCompras));
   }
 

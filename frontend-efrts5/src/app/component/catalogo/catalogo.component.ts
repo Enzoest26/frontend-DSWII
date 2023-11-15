@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cuadro } from 'src/app/modal/cuadro';
+import { ProductoService } from 'src/app/service/producto/producto.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 
 @Component({
@@ -13,10 +15,10 @@ export class CatalogoComponent implements OnInit{
   paginaFinal!: number;
   productosDatos : Cuadro[] = [];
 
-  constructor(private usuarioService: UsuarioService)  {
+  constructor(private productoService: ProductoService, private router: Router)  {
   }
   ngOnInit(): void {
-    this.usuarioService.buscarPorPaginado(this.paginaActual).subscribe(data => {
+    this.productoService.buscarPorPaginado(this.paginaActual).subscribe(data => {
       this.productosDatos = data.content;
       this.paginaFinal = data.totalPages;
     });
@@ -25,7 +27,7 @@ export class CatalogoComponent implements OnInit{
   clickSiguiente(){
     this.productosDatos = [];
     this.paginaActual += 1;
-    this.usuarioService.buscarPorPaginado(this.paginaActual).subscribe(data => {
+    this.productoService.buscarPorPaginado(this.paginaActual).subscribe(data => {
       this.productosDatos = data.content;
       this.paginaFinal = data.totalPages;
     });
@@ -38,10 +40,14 @@ export class CatalogoComponent implements OnInit{
     }
     this.paginaActual -= 1;
     
-    this.usuarioService.buscarPorPaginado(this.paginaActual).subscribe(data => {
+    this.productoService.buscarPorPaginado(this.paginaActual).subscribe(data => {
       this.productosDatos = data.content;
       this.paginaFinal = data.totalPages;
     });
+  }
+
+  irVistaPrevia(id: number){
+    this.router.navigate(['vista-previa', id]);
   }
 
 
