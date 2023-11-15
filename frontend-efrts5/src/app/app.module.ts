@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { CarritoComprasComponent } from './component/carrito-compras/carrito-compras.component';
 import { VerificaCuadroComponent } from './component/verifica-cuadro/verifica-cuadro.component';
 import { CatalogoComponent } from './component/catalogo/catalogo.component';
+import { ProductoComponent } from './component/producto/producto.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { CatalogoComponent } from './component/catalogo/catalogo.component';
     UsuarioComponent,
     CarritoComprasComponent,
     VerificaCuadroComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,
