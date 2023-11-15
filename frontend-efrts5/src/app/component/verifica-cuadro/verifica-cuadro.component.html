@@ -65,9 +65,10 @@
   </div>
 
 <ng-template #notificacionExito>
-    <h4>Se agregó al carrito</h4>
+  <h4>Compra Realizada</h4>
+  <p *ngIf="baseResponse.msjRespuesta">{{baseResponse.msjRespuesta}}</p>
 </ng-template>
 
 <ng-template #notificacionError>
-    <h4>Producto existente en el carrito</h4>
+  <p *ngIf="baseResponse.descripcion">{{baseResponse.descripcion}}</p>
 </ng-template>
