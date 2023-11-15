@@ -16,6 +16,7 @@ export class UsuarioService {
   private urlEliminar = BASE_URL + "/usuario/eliminar";
   private urlActualizar = BASE_URL + "/usuario/actualizar";
   private urlBuscarPorEmail = BASE_URL + "/usuario/buscarPorEmail";
+  private urlRegistrarUser = BASE_URL + "/usuario/registrar";
   
   constructor(private http : HttpClient) { }
 
@@ -39,5 +40,8 @@ export class UsuarioService {
     return this.http.get<any>(`${this.urlBuscarPorEmail}?email=${email}`)
   }
 
+  registrarUser(body: any): Observable <any>{
+    return this.http.post<any>(`${this.urlRegistrarUser}`, body);
+  }
   
 }

@@ -1,12 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { BaseResponse } from 'src/app/modal/base-response';
 import { Usuario } from 'src/app/modal/usuario';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
-import { TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
+import { BOTON_ACTUALIZAR, BOTON_REGISTRAR, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
 
 @Component({
   selector: 'app-usuario',
@@ -19,6 +21,7 @@ export class UsuarioComponent implements OnInit{
   @ViewChild("toast") toast! : NgbToast
   @ViewChild('dialogEliminar') dialogEliminar!: TemplateRef<any>
   @ViewChild('notificacion') notificacion!: TemplateRef<any>
+  @ViewChild('dialogContent') dialogContent!: TemplateRef<any>
 
   usuariosData! : Usuario[];
 
@@ -30,6 +33,12 @@ export class UsuarioComponent implements OnInit{
   mostrarToast: boolean = false;
   baseResponse? : BaseResponse;
   tituloNotificacion ?: string;
+  tituloBoton? : string;
+
+  tipoModal? : number; // 0 REGISTRAR, 1 ACTUALIZAR
+
+  submited : Boolean = true;
+  dataUsuario: MatTableDataSource<Usuario>;
 
   constructor(private usuarioService : UsuarioService,private modalService: NgbModal, private formBuilder : FormBuilder, private dialog : MatDialog
     ,private snackBar : MatSnackBar ){
@@ -41,6 +50,8 @@ export class UsuarioComponent implements OnInit{
       telefono: ['', Validators.required],
       tipoUsuario: ['', Validators.required]
     });
+
+    this.dataUsuario = new MatTableDataSource<Usuario>([]);
   }
   ngOnInit(): void {
     this.usuarioService.obtenerUsuario().subscribe(data => this.usuariosData = data);
@@ -63,6 +74,8 @@ export class UsuarioComponent implements OnInit{
     });
     this.indActualizar = true;
     this.dialog.open(this.modalMantenimiento, {width: '500px', height: '800px'});
+    this.tituloBoton = BOTON_ACTUALIZAR + ' USUARIO';
+    this.tipoModal = 1;
   }
   
   cerrarMantenimiento()
@@ -126,6 +139,42 @@ export class UsuarioComponent implements OnInit{
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  onClickAbrirModal(){
+    this.dialog.open(this.modalMantenimiento, {width: '500px', height: '800px'});
+    this.limpiarFormulario();
+    this.tituloBoton = BOTON_REGISTRAR + ' USUARIO';
+    this.tipoModal = 0;
+  }
+
+  registrarUsuario(){
+    if(this.usuarioForm.invalid){
+      this.submited = false;
+      return;
+    }
+    this.submited = true;
+    let user = this.usuarioForm.value;
+    this.usuarioService.registrarUser(user).subscribe({
+      next: data => {
+        console.log(data);
+        this.mostrarNotificacionExito();
+        this.dialog.closeAll();
+        this.dataUsuario.data.push(data);
+        this.dataUsuario._updateChangeSubscription();
+        this.limpiarFormulario();
+        this.actualizarTabla();
+      },
+      error:(error: HttpErrorResponse) =>{
+        this.baseResponse = error.error;
+        this.mostrarNotificacionError();
+      }
+    })
+  }
+
+  limpiarFormulario()
+  {
+    this.usuarioForm.reset();
   }
 
 }
