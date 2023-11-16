@@ -18,6 +18,7 @@ export class ProductoService {
   private urlEliminar = BASE_URL + "/producto/eliminar";
   private urlActualizar = BASE_URL + "/producto/actualizar";
   private urlRegistrar = BASE_URL + "/producto/registrar";
+  private urlObtenerPrimeros3 = BASE_URL + "/producto/primeros-3";
 
   constructor(private http : HttpClient) { }
 
@@ -25,12 +26,16 @@ export class ProductoService {
     return this.http.get<CuadroPaginado>(`${this.urlBuscarPorPaginado}?pagina=${pagina}`);
   }
 
-  buscarPorIdProducto(id: number) : Observable<Cuadro>{
-    return this.http.get<Cuadro>(`${this.urlBuscarPorIdProducto}/${id}`);
+  buscarPorIdProducto(id: number) : Observable<any>{
+    return this.http.get<any>(`${this.urlBuscarPorIdProducto}/${id}`);
   }
 
   obtenerProducto() : Observable<any>{
     return this.http.get<any>(`${this.urlListarTodos}`);
+  }
+
+  obtenerPrimeros3() : Observable<any>{
+    return this.http.get<any>(`${this.urlObtenerPrimeros3}`);
   }
 
   buscarPorId(id: number) : Observable<any>{

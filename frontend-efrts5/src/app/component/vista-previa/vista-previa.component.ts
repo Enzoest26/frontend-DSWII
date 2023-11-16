@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Cuadro } from 'src/app/modal/cuadro';
+import { Producto } from 'src/app/modal/producto';
 import { CarritoService } from 'src/app/service/carrito/carrito.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
@@ -17,7 +18,7 @@ export class VistaPreviaComponent implements OnInit{
   @ViewChild('notificacionExito') notificacionExito!: TemplateRef<any>
   @ViewChild('notificacionError') notificacionError!: TemplateRef<any>
 
-  producto! : Cuadro;
+  producto! : Producto;
 
   cantidad : number = 1;
 
