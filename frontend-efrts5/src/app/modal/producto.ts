@@ -7,6 +7,7 @@ export interface Producto {
     descripcion: string;
     nombre: string;
     precio: number;
+    imagen: string;
     color: Color;
     idColor: number;
     material: Material;

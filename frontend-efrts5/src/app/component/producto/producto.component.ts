@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, ReplaySubject } from 'rxjs';
 import { BaseResponse } from 'src/app/modal/base-response';
 import { Color } from 'src/app/modal/color';
 import { Material } from 'src/app/modal/material';
@@ -12,7 +13,7 @@ import { Producto } from 'src/app/modal/producto';
 import { ColorService } from 'src/app/service/color/color.service';
 import { MaterialService } from 'src/app/service/material/material.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
-import { BOTON_ACTUALIZAR, BOTON_REGISTRAR, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
+import { BOTON_ACTUALIZAR, BOTON_REGISTRAR, EXTENSIONES_PERMITIDAS_IMG, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
 
 @Component({
   selector: 'app-producto',
@@ -53,6 +54,7 @@ export class ProductoComponent implements OnInit {
       cantidad: ['', Validators.required],
       descripcion: ['', Validators.required],
       nombre: ['', Validators.required],
+      //imagen: ['', Validators.required],
       precio: ['', Validators.required],
       color: ['', Validators.required],
       material: ['', Validators.required]
@@ -123,26 +125,64 @@ export class ProductoComponent implements OnInit {
 
   accionActualizar()
   {
-    if(this.productoForm.invalid)
-    {
-      return;
-    }
+   
     let producto = this.productoForm.value;
-    producto.id = this.idActualizar;
-    this.productoService.actualizarProducto(producto).subscribe({next: data =>{
-      this.actualizarTabla();
-      this.mostrarNotificacionExito();
-      this.dialog.closeAll();
-    }})
+    producto.idProducto = this.idActualizar;
+    const imageHtml = document.getElementById("imagenFile") as HTMLInputElement;
+    const imagenFile = imageHtml.files?.[0];
+    if(imagenFile){
+      if(this.productoForm.invalid)
+      {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64String = event.target?.result as string;
+        producto.imagen = base64String.split(',')[1]; 
+        this.productoService.actualizarProducto(producto).subscribe({
+          next: data => {
+            this.actualizarTabla();
+            this.mostrarNotificacionExito();
+            this.dialog.closeAll();
+          },
+          error:(error: HttpErrorResponse) =>{
+            this.baseResponse = error.error;
+            this.mostrarNotificacionError();
+          }
+        });
+      };
+      
+      reader.readAsDataURL(imagenFile);
+    }
+    else{
+      this.productoForm.get('imagen')?.setErrors(null);
+      if(this.productoForm.invalid){
+        return;
+      };
+      producto.imagen = null;
+      this.productoService.actualizarProducto(producto).subscribe({
+        next: data => {
+          console.log(data);
+          this.actualizarTabla();
+          this.mostrarNotificacionExito();
+          this.dialog.closeAll();
+        },
+        error:(error: HttpErrorResponse) =>{
+          this.baseResponse = error.error;
+          this.mostrarNotificacionError();
+        }
+      });
+    }
   }
 
   onClickAbrirModal(){
+   
     this.dialog.open(this.modalMantenimiento, {width: '500px', height: '800px'});
     this.limpiarFormulario();
     this.tituloBoton = BOTON_REGISTRAR + ' PRODUCTO';
     this.tipoModal = 0;
   }
-
+  
   registrarProducto(){
     if(this.productoForm.invalid){
       this.submited = false;
@@ -150,22 +190,46 @@ export class ProductoComponent implements OnInit {
     }
     this.submited = true;
     let producto = this.productoForm.value;
-    this.productoService.registrarProducto(producto).subscribe({
-      next: data => {
-        console.log(data);
-        this.mostrarNotificacionExito();
-        this.dialog.closeAll();
-        this.dataProducto.data.push(data);
-        this.dataProducto._updateChangeSubscription();
-        this.limpiarFormulario();
-        this.actualizarTabla();
-      },
-      error:(error: HttpErrorResponse) =>{
-        this.baseResponse = error.error;
-        this.mostrarNotificacionError();
+    const imageHtml = document.getElementById("imagenFile") as HTMLInputElement;
+    const imagenFile = imageHtml.files?.[0];
+    let extension = imagenFile?.name.split('.').pop()?.toLowerCase() || '';
+    let extensionPermitida = EXTENSIONES_PERMITIDAS_IMG.includes(extension);
+    if(imagenFile && extensionPermitida){
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64String = event.target?.result as string;
+        producto.imagen = base64String.split(',')[1]; 
+        this.productoService.registrarProducto(producto).subscribe({
+          next: data => {
+            this.baseResponse = data;
+            console.log(data);
+            this.mostrarNotificacionExito();
+            this.dialog.closeAll();
+            this.dataProducto.data.push(data);
+            this.dataProducto._updateChangeSubscription();
+            this.limpiarFormulario();
+            this.actualizarTabla();
+          },
+          error:(error: HttpErrorResponse) =>{
+            this.baseResponse = error.error;
+            this.mostrarNotificacionError();
+          }
+        });
+      };
+      
+      reader.readAsDataURL(imagenFile);
+    }else{
+      let response : BaseResponse = {
+        codRespuesta : "1",
+        descripcion : "Ingrese una imagen correcta.",
+        msjRespuesta : "Error"
       }
-    })
+      this.baseResponse = response;
+      this.mostrarNotificacionError()
+    }
+ 
   }
+
 
   limpiarFormulario()
   {
@@ -191,5 +255,6 @@ export class ProductoComponent implements OnInit {
       verticalPosition: 'bottom',
     });
   }
+  
 
 }

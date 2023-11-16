@@ -7,3 +7,4 @@ export const TITULO_ERROR_NOTIFICACION = "Error !!! ❌"
 export const TITULO_ELIMINAR = "ELIMINAR"
 export const BOTON_REGISTRAR = 'REGISTRAR'
 export const BOTON_ACTUALIZAR = 'ACTUALIZAR'
+export const EXTENSIONES_PERMITIDAS_IMG = ['jpg', 'jpeg', 'png'];
