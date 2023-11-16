@@ -11,6 +11,7 @@ import { CatalogoComponent } from './component/catalogo/catalogo.component';
 import { VistaPreviaComponent } from './component/vista-previa/vista-previa.component';
 import { PersonalizadoComponent } from './component/producto/personalizado/personalizado.component';
 import { OrdenesComponent } from './component/ordenes/ordenes.component';
+import { ProductoComponent } from './component/producto/producto.component';
 
 const routes: Routes = [
   {path: '', component: NavbarComponent, children: [
@@ -23,7 +24,8 @@ const routes: Routes = [
     {path: 'catalogo', component: CatalogoComponent},
     {path: 'vista-previa/:id', component: VistaPreviaComponent},
     {path: 'personalizado', component: PersonalizadoComponent},
-    {path: 'ordenes', component: OrdenesComponent}
+    {path: 'ordenes', component: OrdenesComponent},
+    {path: 'productos', component: ProductoComponent}
   ]},
 ];
 

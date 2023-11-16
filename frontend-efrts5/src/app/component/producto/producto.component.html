@@ -1,1 +1,126 @@
 <p>producto works!</p>
+<!-- Page Content -->
+<div class="container" style="margin-top: 5rem;">
+
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">
+      Productos <small>| Mantenimiento</small>
+    </h1>
+  
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{/administrador}">Home</a></li>
+      <li class="breadcrumb-item active">Ver Productos</li>
+    </ol>
+
+    <button mat-raised-button color="primary" style="background-color: #009100;" (click)="onClickAbrirModal()">
+        Registrar
+    </button>
+    <div class="cont-button justify-content-end" style="display: flex; margin: 10px 5% 10px 0;"></div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productosData">
+          <td>{{producto.nombre}}</td>
+          <td>{{producto.descripcion}}</td>
+          <td>{{producto.cantidad}}</td>
+          <td>{{producto.precio}}</td>
+          <td>
+            <button class="btn btn-warning" (click)="abrirMantenimientoActualizar(producto.idProducto)"><mat-icon>edit</mat-icon></button> 
+            <button class="btn btn-danger" (click)="abrirModalEliminar(producto.idProducto)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </tr>       
+      </tbody>
+    </table>
+  
+  </div>
+
+  <ng-template #modalMantenimiento>
+    <h1 mat-dialog-title class="text-center">{{tituloBoton}}</h1>
+      <form [formGroup]="productoForm" >
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Stock</mat-label>
+          <input matInput type="number" formControlName="cantidad">
+          <mat-error *ngIf="productoForm.hasError('required', 'cantidad')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input matInput type="text" formControlName="descripcion">
+          <mat-error *ngIf="productoForm.hasError('required', 'descripcion')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text"formControlName="nombre">
+          <mat-error *ngIf="productoForm.hasError('required', 'nombre')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" formControlName="precio">
+          <mat-error *ngIf="productoForm.hasError('required', 'precio')">*Campo Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Color</mat-label>
+          <mat-select formControlName="color">
+            <mat-option *ngFor="let color of colores" [value]="color.id">{{color.descripcion}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="productoForm.hasError('required', 'color')">*Campo Obligatorio</mat-error>
+        </mat-form-field> 
+      </div>
+      <div class="form-group row campos">
+        <mat-form-field appearance="outline">
+          <mat-label>Material</mat-label>
+          <mat-select formControlName="material">
+            <mat-option *ngFor="let material of materiales" [value]="material.id">{{material.descripcion}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="productoForm.hasError('required', 'material')">*Campo Obligatorio</mat-error>
+        </mat-form-field> 
+      </div>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button (click)="accionActualizar()" color="primary" *ngIf="tipoModal == 1" style="background-color: #ffc107;">
+          <mat-icon fontIcon="add"></mat-icon>
+          Actualizar
+        </button>
+        <button mat-raised-button color="primary" (click)="registrarProducto()" *ngIf="tipoModal == 0" style="background-color: #009100;">
+          <mat-icon fontIcon="add"></mat-icon>
+          Registrar
+        </button>
+      </div>
+    </form>
+  </ng-template>
+  
+  <ng-template #dialogEliminar>
+    <div mat-dialog-content>
+      <h3 style="font-weight: bold;">ELIMINAR</h3>
+      <p>¿Desea eliminar el producto de ID: <span style="font-weight: bold;">{{idEliminar}}</span>?</p>
+
+      <div class="d-flex justify-content-between">
+        <button mat-raised-button (click)="accionEliminar()" color="warn">
+          Eliminar
+        </button>
+      </div>
+      
+    </div>
+  </ng-template>
+
+  <ng-template #notificacion>
+    <h4>{{tituloNotificacion}}</h4>
+    <p *ngIf="baseResponse?.descripcion">{{baseResponse?.descripcion}}</p>
+  </ng-template>

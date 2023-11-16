@@ -1,0 +1,13 @@
+.campos{
+    margin: 15px 8% 0 8%;
+}
+.mat-column-cantidad,.mat-column-descripcion,.mat-column-nombre,.mat-column-precio,.mat-column-UsuarioId,
+.mat-column-color-descripcion, .mat-column-material-descripcion {
+    border-right: 1px solid #c2c2c2 !important;
+}
+th{
+    font-size: 18px;
+}
+.titulo-mantenimiento{
+    font-size: 45px;
+}
