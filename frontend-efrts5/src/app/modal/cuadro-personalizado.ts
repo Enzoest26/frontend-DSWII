@@ -4,5 +4,6 @@ export interface CuadroPersonalizado {
     colorId: number;
     medidaHorizontal: string;
     medidaVertical: string;
-    imagen: ArrayBuffer | Blob;
+    imagen: string;
+    usuarioId: number;
 }

@@ -168,7 +168,11 @@ input:focus ~ .lbl,
 }
 
 input:focus ~ .lbl,
-input:valid ~ .lbl{
+input:valid ~ .lbl,
+.material-select:focus ~ .lbl,
+.material-select:valid ~ .lbl,
+.color-select:focus ~ .lbl,
+.color-select:valid ~ .lbl{
 	background-color: #ffffff;
 	left: 15px;
 	padding: 0 2px;
@@ -207,5 +211,24 @@ label{
 
 .ver-detalles:hover{
     background-color: lightgrey;
+}
+
+.grupo .med-h{
+    position: absolute;
+    margin-top: 3.5%;
+    margin-left: 30%;
+}
+
+.grupo .med-v {
+    position: absolute;
+    margin-top: 3.5%;
+    margin-left: 80%;
+}
+
+#subir input[type="file"] {
+    opacity: 1;
+    width: 95%;
+    height: 100%;
+    padding-left: 7rem;
 }
 

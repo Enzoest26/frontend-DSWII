@@ -9,34 +9,47 @@
         <select class="material-select" formControlName="materialId">
             <option *ngFor="let material of materialCuadro" [value]="material.id">{{material.descripcion}}</option>
         </select>
-		<!--<input matInput type="text" required formControlName="materialId"/>-->
 		<label class="lbl">Selecciona el material para tu cuadro</label>
 	</div>
 	<div class="input-field2">
         <select class="color-select" formControlName="colorId">
             <option *ngFor="let color of colorCuadro" [value]="color.id">{{color.descripcion}}</option>
         </select>
-		<!--<input matInput type="text" required formControlName="colorId"/>-->
 		<label class="lbl">Selecciona el color del marco</label>
 	</div>
-	<div class="input-field2">
-		<input matInput type="text" required formControlName="medidaHorizontal"/>
-		<label class="lbl">Medida Horizontal</label>
+
+
+	<div class="grupo" style="display: flex;">
+		<div class="input-field2">
+			<input matInput type="text" required formControlName="medidaHorizontal"/>			
+			<label class="lbl">Medida Horizontal</label>
+		</div>
+		<img class="med-h" src="../../../../assets/med-horizontal.png">
+
+		<div style="margin: auto;">x</div>
+
+		<div class="input-field2">
+			<input matInput type="text" required formControlName="medidaVertical"/>
+			<label class="lbl">Medida Vertical</label>
+		</div>
+		<img class="med-v" src="../../../../assets/med-vertical.png">
 	</div>
-	<div class="input-field2">
-		<input matInput type="text" required formControlName="medidaVertical"/>
-		<label class="lbl">Medida Vertical</label>
-	</div>
-	<div class="input-field2">
-		<input matInput type="text" required formControlName="imagen"/>
+
+	
+	<div class="input-field2" style="margin-top: 2rem;">	
 		<label class="lbl">Subir Imagen</label>
+	</div>
+	<div >
+		<input style=" width: 95%; height: 100%; padding-left: 7rem; border: 1px solid #D1D1D1; border-radius: 0.625rem;" 
+		id="imgFile" type="file" required formControlName="imagen" accept=".jpg, .jpeg, .png"/>
 	</div>
 	
 	<button (click)="registrarCuadroPersonalizado()">Guardar mi cuadro</button>
 
-	<button class="ver-detalles">Ver detalles</button>
+	<button class="ver-detalles" routerLink="/catalogo">Ir al Catálogo</button>
 
 </form>
+
 
 <ng-template #notificacion>
     <h4>{{tituloNotificacion}}</h4>

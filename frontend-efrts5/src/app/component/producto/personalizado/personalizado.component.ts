@@ -8,10 +8,12 @@ import { BaseResponse } from 'src/app/modal/base-response';
 import { ColorCuadro } from 'src/app/modal/color-cuadro';
 import { CuadroPersonalizado } from 'src/app/modal/cuadro-personalizado';
 import { MaterialCuadro } from 'src/app/modal/material-cuadro';
+import { Usuario } from 'src/app/modal/usuario';
 import { ColorproductoService } from 'src/app/service/colorproducto/colorproducto.service';
 import { MaterialproductoService } from 'src/app/service/materialproducto/materialproducto.service';
 import { PersonalizadoService } from 'src/app/service/producto/personalizado/personalizado.service';
-import { PATTERN_ALFABETICO_ESPACIO, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
+import { UsuarioService } from 'src/app/service/usuario/usuario.service';
+import { BOTON_ACTUALIZAR, EXTENSIONES_PERMITIDAS_IMG, PATTERN_ALFABETICO_ESPACIO, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOTIFICACION } from 'src/app/util/constantes';
 
 @Component({
   selector: 'app-personalizado',
@@ -20,7 +22,9 @@ import { PATTERN_ALFABETICO_ESPACIO, TITULO_ERROR_NOTIFICACION, TITULO_EXITO_NOT
 })
 export class PersonalizadoComponent implements OnInit, AfterViewInit {
   @ViewChild('notificacion') notificacion!: TemplateRef<any>
+  @ViewChild("modalMantenimiento") modalMantenimiento! : TemplateRef<any>
 
+  public usuario!: Usuario;
   public cuadroPersonalizado!: CuadroPersonalizado[];
   public colorCuadro!: ColorCuadro[];
   public materialCuadro!: MaterialCuadro[];
@@ -32,12 +36,16 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
   dataCuadroPersonalizado: MatTableDataSource<CuadroPersonalizado>;
 
   baseResponse?: BaseResponse;
-
   tituloNotificacion?: string;
+  idCPActualizar?: number;
+  indActualizar : Boolean = false;
+  tituloBoton? : string;
+  tipoModal? : number; // 0 REGISTRAR, 1 ACTUALIZAR
 
   constructor(private personalizadoService: PersonalizadoService, 
     private colorProductoService: ColorproductoService,
     private materialProductoService: MaterialproductoService,
+    private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog, private snackBar: MatSnackBar) {
       this.cuadroPersonalizadoForm = this.formBuilder.group(
@@ -47,11 +55,13 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
           colorId: ['', Validators.required],
           medidaHorizontal: ['', Validators.required],
           medidaVertical: ['', Validators.required],
-          imagen: [''],
+          imagen: [null, Validators.required],
+          usuarioId: ['', Validators.required]
         }
       );
 
       this.dataCuadroPersonalizado = new MatTableDataSource<CuadroPersonalizado>([]);
+      this.usuarioService.buscarPorEmail(localStorage.getItem("email")!).subscribe(data => this.usuario = data);
     }
 
   ngOnInit(): void {
@@ -64,7 +74,7 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     throw new Error('Method not implemented.');
   }
-  
+
   registrarCuadroPersonalizado() {
     if(this.cuadroPersonalizadoForm.invalid) {
       this.submited = false;
@@ -72,22 +82,76 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
     }
     this.submited = true;
     let cuadroPersonalizado = this.cuadroPersonalizadoForm.value;
-    console.log(cuadroPersonalizado);
-    this.personalizadoService.registrarCuadroPersonalizado(cuadroPersonalizado).subscribe({
+    const imagenHtml = document.getElementById("imgFile") as HTMLInputElement;
+    const imagenFile = imagenHtml.files?.[0];
+    let extension = imagenFile?.name.split('.').pop()?.toLowerCase() || '';
+    let extensionPermitida = EXTENSIONES_PERMITIDAS_IMG.includes(extension);
+    
+    if(imagenFile && extensionPermitida){
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64String = event.target?.result as string;
+        cuadroPersonalizado.imagen = base64String.split(',')[1];
+        cuadroPersonalizado.usuarioId = this.usuario.id;
+        console.log("primero ")
+        console.log(cuadroPersonalizado);
+        this.personalizadoService.registrarCuadroPersonalizado(cuadroPersonalizado).subscribe({
+          next: data => {
+            console.log(data);
+            this.mostrarNotificacionExito();
+            this.dialog.closeAll();
+            this.dataCuadroPersonalizado.data.push(data);
+            this.dataCuadroPersonalizado._updateChangeSubscription();
+            this.limpiarFormulario();
+          },
+          error: (error : HttpErrorResponse) => {
+            this.baseResponse = error.error;
+            this.mostrarNotificacionError();
+          }
+        });
+      };
+
+      reader.readAsDataURL(imagenFile);
+    } else {
+      let response : BaseResponse = {
+        codRespuesta : "1",
+        descripcion : "Ingrese una imagen correcta.",
+        msjRespuesta : "Error"
+      }
+      this.baseResponse = response;
+      this.mostrarNotificacionError()
+    }
+  }
+
+  abrirModalActualizar(id: number) {
+    this.cuadroPersonalizadoForm.reset();
+    this.personalizadoService.buscarPorId(id).subscribe({
       next: data => {
-        console.log(data);
-        this.mostrarNotificacionExito();
-        this.dialog.closeAll();
-        this.dataCuadroPersonalizado.data.push(data);
-        this.dataCuadroPersonalizado._updateChangeSubscription();
-        this.limpiarFormulario();
-      },
-      error: (error : HttpErrorResponse) => {
-        this.baseResponse = error.error;
-        this.mostrarNotificacionError();
+        this.cuadroPersonalizadoForm.patchValue({
+          nombre: data.nombre,
+          materialId: data.material.id,
+          colorId: data.color.id,
+          //medidaHorizontal: data.medidaHorizontal,
+          //medidaVertical: data.medidaVertical
+          //imagen: data.imagen
+        });
+        this.idCPActualizar = data.idProducto;
       }
     });
+    this.indActualizar = true;
+    this.dialog.open(this.modalMantenimiento, {width: '500px', height: '800px'});
+    this.tituloBoton = BOTON_ACTUALIZAR + ' Cuadro';
+    this.tipoModal = 1;
   }
+
+
+
+
+
+
+
+
+
 
   mostrarNotificacionError() {
     this.tituloNotificacion = TITULO_ERROR_NOTIFICACION;

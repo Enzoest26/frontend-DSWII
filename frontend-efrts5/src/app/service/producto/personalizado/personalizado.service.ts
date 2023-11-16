@@ -9,10 +9,20 @@ import { BASE_URL } from 'src/app/util/constantes';
 export class PersonalizadoService {
 
   private urlRegistrarCuadroPersonalizado = BASE_URL + "/producto/personalizado";
+  private urlBuscarPorId = BASE_URL + "/producto/buscarPorId"
+  private urlActualizarCuadroPersonalizado = BASE_URL + "/producto/personalizado";
 
   constructor(private http: HttpClient) { }
 
   registrarCuadroPersonalizado(body: any): Observable<any> {
     return this.http.post<any>(`${this.urlRegistrarCuadroPersonalizado}`, body);
+  }
+
+  buscarPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.urlBuscarPorId}/${id}`);
+  }
+
+  actualizarCuadroPersonalizado(id: number, body: any) {
+    return this.http.put<any>(`${this.urlActualizarCuadroPersonalizado}/${id}`, body);
   }
 }
