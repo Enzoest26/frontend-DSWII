@@ -11,6 +11,9 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class ProductoService {
 
+  private pathProductos = BASE_URL + "/productos"
+
+  /*
   private urlBuscarPorPaginado = BASE_URL + "/producto/buscarPorPagina";
   private urlBuscarPorIdProducto = BASE_URL + "/producto/buscarPorId";
   private urlListarTodos = BASE_URL + "/producto/listarTodos";
@@ -19,38 +22,39 @@ export class ProductoService {
   private urlActualizar = BASE_URL + "/producto/actualizar";
   private urlRegistrar = BASE_URL + "/producto/registrar";
   private urlObtenerPrimeros3 = BASE_URL + "/producto/primeros-3";
+  */
 
   constructor(private http : HttpClient) { }
 
   buscarPorPaginado(pagina: number) : Observable<CuadroPaginado>{
-    return this.http.get<CuadroPaginado>(`${this.urlBuscarPorPaginado}?pagina=${pagina}`);
+    return this.http.get<CuadroPaginado>(`${this.pathProductos}?pagina=${pagina}`);
   }
 
   buscarPorIdProducto(id: number) : Observable<any>{
-    return this.http.get<any>(`${this.urlBuscarPorIdProducto}/${id}`);
+    return this.http.get<any>(`${this.pathProductos}/${id}`);
   }
 
   obtenerProducto() : Observable<any>{
-    return this.http.get<any>(`${this.urlListarTodos}`);
+    return this.http.get<any>(`${this.pathProductos}`);
   }
 
   obtenerPrimeros3() : Observable<any>{
-    return this.http.get<any>(`${this.urlObtenerPrimeros3}`);
+    return this.http.get<any>(`${this.pathProductos}`);
   }
 
   buscarPorId(id: number) : Observable<any>{
-    return this.http.get<any>(`${this.urlBuscarPorId}/${id}`);
+    return this.http.get<any>(`${this.pathProductos}/${id}`);
   }
 
   registrarProducto(body: any): Observable <any>{
-    return this.http.post<any>(`${this.urlRegistrar}`, body);
+    return this.http.post<any>(`${this.pathProductos}`, body);
   }
 
   actualizarProducto(body: Producto) : Observable<any>{
-    return this.http.put<any>(`${this.urlActualizar}`,body);
+    return this.http.put<any>(`${this.pathProductos}`,body);
   }
 
   eliminarProducto(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.urlEliminar}/${id}`);
+    return this.http.delete<any>(`${this.pathProductos}/${id}`);
   }
 }

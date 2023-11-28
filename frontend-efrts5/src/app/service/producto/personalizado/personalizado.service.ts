@@ -8,9 +8,9 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class PersonalizadoService {
 
-  private urlRegistrarCuadroPersonalizado = BASE_URL + "/producto/personalizado";
-  private urlBuscarPorId = BASE_URL + "/producto/buscarPorId"
-  private urlActualizarCuadroPersonalizado = BASE_URL + "/producto/personalizado";
+  private urlRegistrarCuadroPersonalizado = BASE_URL + "/productos/personalizado";
+  private urlBuscarPorId = BASE_URL + "/productos/buscarPorId"
+  private urlActualizarCuadroPersonalizado = BASE_URL + "/productos/personalizado";
 
   constructor(private http: HttpClient) { }
 
