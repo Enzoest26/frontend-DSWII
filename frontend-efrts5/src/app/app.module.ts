@@ -9,7 +9,7 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './component/login/login.component';
 import { RegistroComponent } from './component/registro/registro.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,9 @@ import { ProductoComponent } from './component/producto/producto.component';
 import { VistaPreviaComponent } from './component/vista-previa/vista-previa.component';
 import { PersonalizadoComponent } from './component/producto/personalizado/personalizado.component';
 import { OrdenesComponent } from './component/ordenes/ordenes.component';
+import { InterceptorInterceptor } from './config/interceptor.interceptor';
+import { ErrorListTemplateComponent } from './component/error-list-template/error-list-template.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { OrdenesComponent } from './component/ordenes/ordenes.component';
     ProductoComponent,
     VistaPreviaComponent,
     PersonalizadoComponent,
-    OrdenesComponent
+    OrdenesComponent,
+    ErrorListTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +68,13 @@ import { OrdenesComponent } from './component/ordenes/ordenes.component';
     MatTableModule,
     MatDialogModule, 
     MatSelectModule,
-
+    MatListModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
