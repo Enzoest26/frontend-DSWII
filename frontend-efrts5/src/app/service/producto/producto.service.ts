@@ -27,7 +27,7 @@ export class ProductoService {
   constructor(private http : HttpClient) { }
 
   buscarPorPaginado(pagina: number) : Observable<CuadroPaginado>{
-    return this.http.get<CuadroPaginado>(`${this.pathProductos}?pagina=${pagina}`);
+    return this.http.get<CuadroPaginado>(`${this.pathProductos}/paginas?pagina=${pagina}`);
   }
 
   buscarPorIdProducto(id: number) : Observable<any>{
@@ -39,7 +39,7 @@ export class ProductoService {
   }
 
   obtenerPrimeros3() : Observable<any>{
-    return this.http.get<any>(`${this.pathProductos}`);
+    return this.http.get<any>(`${this.pathProductos}/top-3`);
   }
 
   buscarPorId(id: number) : Observable<any>{
