@@ -9,12 +9,13 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class MaterialService {
 
-  private url = BASE_URL + "/material/listarTodos";
+  private pathMateriales = BASE_URL + "/materiales"
+  //private url = BASE_URL + "/material/listarTodos";
 
   constructor(private http: HttpClient) { }
 
   obtenerMaterialProducto() : Observable<Material[]>
   {
-    return this.http.get<Material[]>(`${this.url}`);
+    return this.http.get<Material[]>(`${this.pathMateriales}`);
   }
 }
