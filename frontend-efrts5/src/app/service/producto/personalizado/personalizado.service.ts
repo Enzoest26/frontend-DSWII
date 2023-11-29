@@ -8,14 +8,17 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class PersonalizadoService {
 
-  private urlRegistrarCuadroPersonalizado = BASE_URL + "/productos/personalizado";
+  private pathProductoPersonalizado = BASE_URL + "/productos/personalizado";
   private urlBuscarPorId = BASE_URL + "/productos/buscarPorId"
+/*
+  private urlRegistrarCuadroPersonalizado = BASE_URL + "/productos/personalizado";
   private urlActualizarCuadroPersonalizado = BASE_URL + "/productos/personalizado";
+*/
 
   constructor(private http: HttpClient) { }
 
   registrarCuadroPersonalizado(body: any): Observable<any> {
-    return this.http.post<any>(`${this.urlRegistrarCuadroPersonalizado}`, body);
+    return this.http.post<any>(`${this.pathProductoPersonalizado}`, body);
   }
 
   buscarPorId(id: number): Observable<any> {
@@ -23,6 +26,6 @@ export class PersonalizadoService {
   }
 
   actualizarCuadroPersonalizado(id: number, body: any) {
-    return this.http.put<any>(`${this.urlActualizarCuadroPersonalizado}/${id}`, body);
+    return this.http.put<any>(`${this.pathProductoPersonalizado}/${id}`, body);
   }
 }
