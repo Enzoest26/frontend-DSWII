@@ -123,34 +123,6 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  abrirModalActualizar(id: number) {
-    this.cuadroPersonalizadoForm.reset();
-    this.personalizadoService.buscarPorId(id).subscribe({
-      next: data => {
-        this.cuadroPersonalizadoForm.patchValue({
-          nombre: data.nombre,
-          materialId: data.material.id,
-          colorId: data.color.id,
-          //medidaHorizontal: data.medidaHorizontal,
-          //medidaVertical: data.medidaVertical
-          //imagen: data.imagen
-        });
-        this.idCPActualizar = data.idProducto;
-      }
-    });
-    this.indActualizar = true;
-    this.dialog.open(this.modalMantenimiento, {width: '500px', height: '800px'});
-    this.tituloBoton = BOTON_ACTUALIZAR + ' Cuadro';
-    this.tipoModal = 1;
-  }
-
-
-
-
-
-
-
-
 
 
   mostrarNotificacionError() {
@@ -165,7 +137,7 @@ export class PersonalizadoComponent implements OnInit, AfterViewInit {
   mostrarNotificacionExito() {
     this.tituloNotificacion = TITULO_EXITO_NOTIFICACION;
     this.snackBar.openFromTemplate(this.notificacion, {
-      duration: 10 * 1000,
+      duration: 3 * 1000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
