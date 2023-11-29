@@ -12,9 +12,9 @@ export class OrdenService {
 
   constructor(private http : HttpClient) { }
 
-  private urlVenta = BASE_URL + "/carrito/venta";
+  private pathCarritoCompras = BASE_URL + "/carritos";
 
   realizarVenta(body: GenerarOrden) : Observable<BaseResponse>{
-    return this.http.post<BaseResponse>(`${this.urlVenta}`,body);
+    return this.http.post<BaseResponse>(`${this.pathCarritoCompras}`,body);
   }
 }

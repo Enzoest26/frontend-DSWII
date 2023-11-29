@@ -35,7 +35,7 @@ export class RegistroComponent implements OnInit, AfterViewInit {
       this.usuarioForm = this.formBuilder.group(
         {
           direccion: ['', Validators.required],
-          email: ['', [Validators.required, Validators.email]],
+          email: ['', [Validators.required]],
           nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern(PATTERN_ALFABETICO_ESPACIO)]],
           password: ['', Validators.required],
           telefono: ['', [Validators.required, Validators.maxLength(9),Validators.pattern(PATTERN_NUMERICO)]],
@@ -74,11 +74,11 @@ export class RegistroComponent implements OnInit, AfterViewInit {
       },
       error: (error : HttpErrorResponse) =>{
         this.baseResponse = error.error;
-        this.mostrarNotificacionError();
+        //this.mostrarNotificacionError();
       }
     });
   }
-
+/*
   mostrarNotificacionError() {
     this.tituloNotificacion = TITULO_ERROR_NOTIFICACION;
     this.snackBar.openFromTemplate(this.notificacion, {
@@ -86,7 +86,7 @@ export class RegistroComponent implements OnInit, AfterViewInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
-  }
+  }*/
   mostrarNotificacionExito() {
     this.tituloNotificacion = TITULO_EXITO_NOTIFICACION;
     this.snackBar.openFromTemplate(this.notificacion, {

@@ -8,13 +8,13 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class RegistroService {
 
-  private urlRegistro = BASE_URL + "/usuario/registrar";
+  private pathRegistro = BASE_URL + "/usuarios";
 
   constructor(private http : HttpClient) { }
 
   registrarUsuario(body : any) : Observable<any>
   {
-    return this.http.post<any>(`${this.urlRegistro}`, body);
+    return this.http.post<any>(`${this.pathRegistro}`, body);
   }
 
 }
