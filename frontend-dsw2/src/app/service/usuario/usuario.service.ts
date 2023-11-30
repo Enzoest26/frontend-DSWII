@@ -11,38 +11,32 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class UsuarioService {
 
-  private pathUsuarios = BASE_URL + "/usuarios";
-  /*
-  private urlBuscarPodId = BASE_URL + "/usuario/buscarPorId";
-  private urlEliminar = BASE_URL + "/usuario/eliminar";
-  private urlActualizar = BASE_URL + "/usuario/actualizar";
-  private urlBuscarPorEmail = BASE_URL + "/usuario/buscarPorEmail";
-  private urlRegistrarUser = BASE_URL + "/usuario/registrar";
-  */
+  private urlApiUsuarios = BASE_URL + "/usuarios";
+
   constructor(private http : HttpClient) { }
 
   obtenerUsuario() : Observable<any>{
-    return this.http.get<any>(`${this.pathUsuarios}`);
+    return this.http.get<any>(`${this.urlApiUsuarios}`);
   }
 
   buscarPorId(id: number) : Observable<any>{
-    return this.http.get<any>(`${this.pathUsuarios}/${id}`);
+    return this.http.get<any>(`${this.urlApiUsuarios}/${id}`);
   }
 
   actualizarUsuario(body: Usuario) : Observable<any>{
-    return this.http.put<any>(`${this.pathUsuarios}`,body);
+    return this.http.put<any>(`${this.urlApiUsuarios}`,body);
   }
 
   eliminarUsuario(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.pathUsuarios}/${id}`);
+    return this.http.delete<any>(`${this.urlApiUsuarios}/${id}`);
   }
 
   buscarPorEmail(email: string) : Observable<any>{
-    return this.http.get<any>(`${this.pathUsuarios}/email?email=${email}`)
+    return this.http.get<any>(`${this.urlApiUsuarios}/email?email=${email}`)
   }
 
   registrarUser(body: any): Observable <any>{
-    return this.http.post<any>(`${this.pathUsuarios}`, body);
+    return this.http.post<any>(`${this.urlApiUsuarios}`, body);
   }
   
 }

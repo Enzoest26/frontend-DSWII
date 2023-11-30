@@ -11,50 +11,40 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class ProductoService {
 
-  private pathProductos = BASE_URL + "/productos"
+  private urlApiProductos = BASE_URL + "/productos"
 
-  /*
-  private urlBuscarPorPaginado = BASE_URL + "/producto/buscarPorPagina";
-  private urlBuscarPorIdProducto = BASE_URL + "/producto/buscarPorId";
-  private urlListarTodos = BASE_URL + "/producto/listarTodos";
-  private urlBuscarPorId = BASE_URL + "/producto/buscarPorId";
-  private urlEliminar = BASE_URL + "/producto/eliminar";
-  private urlActualizar = BASE_URL + "/producto/actualizar";
-  private urlRegistrar = BASE_URL + "/producto/registrar";
-  private urlObtenerPrimeros3 = BASE_URL + "/producto/primeros-3";
-  */
 
   constructor(private http : HttpClient) { }
 
   buscarPorPaginado(pagina: number) : Observable<CuadroPaginado>{
-    return this.http.get<CuadroPaginado>(`${this.pathProductos}/paginas?pagina=${pagina}`);
+    return this.http.get<CuadroPaginado>(`${this.urlApiProductos}/paginas?pagina=${pagina}`);
   }
 
   buscarPorIdProducto(id: number) : Observable<any>{
-    return this.http.get<any>(`${this.pathProductos}/${id}`);
+    return this.http.get<any>(`${this.urlApiProductos}/${id}`);
   }
 
   obtenerProducto() : Observable<any>{
-    return this.http.get<any>(`${this.pathProductos}`);
+    return this.http.get<any>(`${this.urlApiProductos}`);
   }
 
   obtenerPrimeros3() : Observable<any>{
-    return this.http.get<any>(`${this.pathProductos}/top-3`);
+    return this.http.get<any>(`${this.urlApiProductos}/top-3`);
   }
 
   buscarPorId(id: number) : Observable<any>{
-    return this.http.get<any>(`${this.pathProductos}/${id}`);
+    return this.http.get<any>(`${this.urlApiProductos}/${id}`);
   }
 
   registrarProducto(body: any): Observable <any>{
-    return this.http.post<any>(`${this.pathProductos}`, body);
+    return this.http.post<any>(`${this.urlApiProductos}`, body);
   }
 
   actualizarProducto(body: Producto) : Observable<any>{
-    return this.http.put<any>(`${this.pathProductos}`,body);
+    return this.http.put<any>(`${this.urlApiProductos}`,body);
   }
 
   eliminarProducto(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.pathProductos}/${id}`);
+    return this.http.delete<any>(`${this.urlApiProductos}/${id}`);
   }
 }

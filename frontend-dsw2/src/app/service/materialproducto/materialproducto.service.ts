@@ -8,11 +8,11 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class MaterialproductoService {
 
-  private pathMateriales = BASE_URL + "/materiales"
+  private urlApiMateriales = BASE_URL + "/materiales"
 
   constructor(private http: HttpClient) { }
 
   obtenerMateriales() {
-    return this.http.get<MaterialCuadro[]>(`${this.pathMateriales}`);
+    return this.http.get<MaterialCuadro[]>(`${this.urlApiMateriales}`);
   }
 }

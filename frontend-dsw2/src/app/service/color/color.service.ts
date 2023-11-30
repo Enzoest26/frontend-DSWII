@@ -9,13 +9,12 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class ColorService {
 
-  private pathColores = BASE_URL + "/colores";
-  //private url = BASE_URL + "/color/listarTodos";
+  private urlApiColores = BASE_URL + "/colores";
 
   constructor(private http: HttpClient) { }
 
   obtenerColorProducto() : Observable<Color[]>
   {
-    return this.http.get<Color[]>(`${this.pathColores}`);
+    return this.http.get<Color[]>(`${this.urlApiColores}`);
   }
 }

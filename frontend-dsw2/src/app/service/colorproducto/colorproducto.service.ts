@@ -8,11 +8,11 @@ import { ColorCuadro } from 'src/app/modal/color-cuadro';
 })
 export class ColorproductoService {
 
-  private pathColores = BASE_URL + "/colores"
+  private urlApiColores = BASE_URL + "/colores"
 
   constructor(private http: HttpClient) { }
 
   obtenerColores() {
-    return this.http.get<ColorCuadro[]>(`${this.pathColores}`);
+    return this.http.get<ColorCuadro[]>(`${this.urlApiColores}`);
   }
 }

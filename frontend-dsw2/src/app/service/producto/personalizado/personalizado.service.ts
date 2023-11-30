@@ -8,12 +8,12 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class PersonalizadoService {
 
-  private pathProductoPersonalizado = BASE_URL + "/productos/personalizado";
+  private urlApiProductoPersonalizado = BASE_URL + "/productos/personalizado";
 
   constructor(private http: HttpClient) { }
 
   registrarCuadroPersonalizado(body: any): Observable<any> {
-    return this.http.post<any>(`${this.pathProductoPersonalizado}`, body);
+    return this.http.post<any>(`${this.urlApiProductoPersonalizado}`, body);
   }
 
 }

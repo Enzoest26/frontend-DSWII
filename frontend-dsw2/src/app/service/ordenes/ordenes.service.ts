@@ -8,11 +8,11 @@ import { BASE_URL } from 'src/app/util/constantes';
 })
 export class OrdenesService {
 
-  private pathOrdenes = BASE_URL + "/reportes";
+  private urlApiOrdenes = BASE_URL + "/reportes";
   constructor(private http: HttpClient) { }
 
   obtenerOrdenes(): Observable<any> {
-    return this.http.get<any>(`${this.pathOrdenes}`);
+    return this.http.get<any>(`${this.urlApiOrdenes}`);
   }
 }
  
